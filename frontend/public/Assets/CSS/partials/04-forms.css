@@ -1,0 +1,252 @@
+/* ═══════════════════════════════════════════
+   FORMS & BUTTONS
+   ═══════════════════════════════════════════ */
+
+/* ── Buttons ── */
+.btn,
+button[type="submit"],
+input[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.btn:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 12px rgba(108, 71, 255, 0.3);
+}
+
+.btn:active,
+button[type="submit"]:active,
+input[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--bg-white) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-strong) !important;
+  box-shadow: none !important;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+  box-shadow: none !important;
+}
+
+.btn-outline {
+  background: transparent !important;
+  color: var(--primary) !important;
+  border: 1.5px solid var(--primary) !important;
+  box-shadow: none !important;
+}
+
+.btn-outline:hover {
+  background: var(--primary-light) !important;
+  box-shadow: none !important;
+}
+
+.btn-link {
+  background: transparent !important;
+  color: var(--primary) !important;
+  border: none !important;
+  padding: 6px 4px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--transition), color var(--transition) !important;
+}
+
+.btn-link:hover {
+  text-decoration-color: var(--primary) !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.btn-danger {
+  background: var(--danger) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-danger:hover {
+  background: var(--danger-dark) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+.btn-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--danger);
+  background: var(--danger-light);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  text-decoration: none;
+}
+
+.btn-delete:hover {
+  background: #fce7e7;
+  transform: translateY(-1px);
+}
+
+/* ── Auth Card ── */
+.auth-card {
+  max-width: 440px;
+  margin: 40px auto;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+}
+
+.auth-card h1 {
+  font-size: 1.5rem;
+  margin-bottom: 28px;
+  text-align: center;
+  color: var(--text-primary);
+  -webkit-text-fill-color: var(--text-primary);
+  background: none;
+}
+
+/* ── Form Groups ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  margin-bottom: 0;
+}
+
+.form-group input:hover,
+select:hover,
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="number"]:hover,
+input[type="date"]:hover {
+  border-color: var(--border-strong);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+select:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(108, 71, 255, 0.12);
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.form-actions input[type="submit"] {
+  flex: 1;
+}
+
+/* Auth footer link */
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.auth-footer a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--transition);
+}
+
+.auth-footer a:hover {
+  text-decoration-color: var(--primary);
+}
+
+/* Profile links */
+#profile-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--bg-main);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}

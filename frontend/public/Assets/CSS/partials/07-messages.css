@@ -1,0 +1,42 @@
+/* ═══════════════════════════════════════════
+   MESSAGES
+   ═══════════════════════════════════════════ */
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  background: var(--danger-light);
+  color: var(--danger-dark);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 18px;
+  animation: fadeInUp 0.3s var(--ease);
+}
+
+.form-group .form-error,
+small.form-error {
+  display: block;
+  padding: 7px 12px;
+  margin-top: -10px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  animation: none;
+}
+
+.form-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  background: var(--success-light);
+  color: #065F46;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 18px;
+  animation: fadeInUp 0.3s var(--ease);
+}

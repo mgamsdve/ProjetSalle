@@ -1,0 +1,256 @@
+/* ═══════════════════════════════════════════
+   CARDS & GRID LAYOUT
+   ═══════════════════════════════════════════ */
+
+/* ── Page Header ── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  margin-bottom: 0;
+}
+
+/* ── Card Grid ── */
+.Salle-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ── Card ── */
+.salle {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.salle:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+.salle h3 {
+  margin-top: 4px;
+  margin-bottom: 0;
+  line-height: 1.35;
+  font-size: 1.05rem;
+}
+
+.salle p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.salle p strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ── Room Image ── */
+.salle-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  margin-bottom: 4px;
+  background: var(--bg-main);
+  border: none;
+  box-shadow: none;
+}
+
+/* ── Salle Link Area ── */
+.salle-link,
+.salle-links {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+  flex-wrap: wrap;
+}
+
+.salle-link a,
+.salle-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--primary);
+  color: white;
+  transition: background var(--transition);
+  text-decoration: none;
+}
+
+.salle-link a:hover,
+.salle-links a:hover {
+  background: var(--primary-dark);
+}
+
+/* ── Equipment ── */
+.equipement-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.equipement-id {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+/* ── Role Badge ── */
+.role {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.role.admin {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.role.utilisateur {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* ── Generic Badge / Pill ── */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* ── Room Details Layout ── */
+.details-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+.details-layout .details-main {
+  min-width: 0;
+}
+
+.booking-panel {
+  position: sticky;
+  top: calc(64px + 20px);
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+}
+
+.booking-panel h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.booking-panel p {
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+}
+
+.booking-panel .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 13px;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.details-info-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.details-info-row p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.details-info-row p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.equipment-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.equipment-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.reservation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reservation-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}
+
+.reservation-item strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .details-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-panel {
+    position: static;
+  }
+}

@@ -1,0 +1,208 @@
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .details-layout {
+    grid-template-columns: 1fr 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 16px;
+    gap: 10px;
+    position: relative;
+  }
+
+  .navbar-brand {
+    margin-right: 0;
+  }
+
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 2px;
+    padding-bottom: 6px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    order: 4;
+  }
+
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .navbar-links > a {
+    padding: 10px 12px;
+    width: 100%;
+  }
+
+  .navbar-actions {
+    display: none;
+  }
+
+  .navbar-mobile-toggle {
+    display: flex;
+  }
+
+  .navbar-dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    background: var(--bg-hover);
+    padding: 4px 0 4px 16px;
+    border-radius: 0;
+    min-width: auto;
+  }
+
+  /* Main */
+  main {
+    padding: 20px 16px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Cards */
+  .Salle-container {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* Page header */
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-header .btn {
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Auth card */
+  .auth-card {
+    padding: 24px 20px;
+    margin: 20px auto;
+  }
+
+  /* Forms */
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions input[type="submit"],
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Admin layout */
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px;
+    overflow-x: auto;
+  }
+
+  .admin-sidebar-brand {
+    width: 100%;
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+  }
+
+  .admin-sidebar-footer {
+    width: 100%;
+  }
+
+  .admin-content {
+    padding: 20px 16px;
+  }
+
+  .admin-form {
+    padding: 20px;
+  }
+
+  .admin-kpi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Stats */
+  .stats-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 100%;
+    padding: 24px 28px;
+  }
+
+  /* Room details */
+  .details-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-panel {
+    position: static;
+  }
+
+  /* Profile links */
+  #profile-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #profile-links a,
+  #profile-links .btn-link,
+  #profile-links .btn-danger {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-connector {
+    width: 2px;
+    height: 32px;
+  }
+}

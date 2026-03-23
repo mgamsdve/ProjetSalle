@@ -1,0 +1,58 @@
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  /* Primary */
+  --primary:        #6C47FF;
+  --primary-dark:   #5035CC;
+  --primary-light:  #EEE9FF;
+  --primary-hover:  rgba(108, 71, 255, 0.08);
+
+  /* Text */
+  --text-primary:   #1A1A2E;
+  --text-secondary: #6B7280;
+  --text-muted:     #9CA3AF;
+
+  /* Backgrounds */
+  --bg-main:        #F7F7F8;
+  --bg-white:       #FFFFFF;
+  --bg-hover:       #F3F4F6;
+
+  /* Borders */
+  --border:         #E5E7EB;
+  --border-strong:  #D1D5DB;
+
+  /* Semantic */
+  --danger:         #EF4444;
+  --danger-light:   #FEF2F2;
+  --danger-dark:    #DC2626;
+  --success:        #10B981;
+  --success-light:  #ECFDF5;
+  --warning:        #F59E0B;
+  --warning-light:  #FFFBEB;
+
+  /* Radius */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.12);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.07);
+
+  /* Typography */
+  --font: 'Inter', system-ui, sans-serif;
+
+  /* Motion */
+  --ease:       cubic-bezier(0.2, 0, 0, 1);
+  --transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
+
+  /* Admin */
+  --sidebar-width: 240px;
+  --sidebar-bg:    #1A1A2E;
+}

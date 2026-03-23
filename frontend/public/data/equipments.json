@@ -1,0 +1,57 @@
+[
+  {
+    "id_equipement": 1,
+    "equi_nom": "Projecteur",
+    "equi_description": "Projecteur HD"
+  },
+  {
+    "id_equipement": 2,
+    "equi_nom": "PC",
+    "equi_description": "Ordinateur fixe"
+  },
+  {
+    "id_equipement": 3,
+    "equi_nom": "Table",
+    "equi_description": "Table de travail"
+  },
+  {
+    "id_equipement": 4,
+    "equi_nom": "Chaise",
+    "equi_description": "Chaise standard"
+  },
+  {
+    "id_equipement": 5,
+    "equi_nom": "Tableau",
+    "equi_description": "Tableau blanc"
+  },
+  {
+    "id_equipement": 6,
+    "equi_nom": "Imprimante",
+    "equi_description": "Imprimante réseau"
+  },
+  {
+    "id_equipement": 7,
+    "equi_nom": "Climatisation",
+    "equi_description": "Système de climatisation"
+  },
+  {
+    "id_equipement": 8,
+    "equi_nom": "Micro",
+    "equi_description": "Micro sans fil"
+  },
+  {
+    "id_equipement": 9,
+    "equi_nom": "Haut-parleurs",
+    "equi_description": "Système audio"
+  },
+  {
+    "id_equipement": 10,
+    "equi_nom": "Ecran LED",
+    "equi_description": "Grand écran LED"
+  },
+  {
+    "id_equipement": 11,
+    "equi_nom": "JusteDance",
+    "equi_description": "ok"
+  }
+]

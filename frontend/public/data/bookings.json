@@ -1,0 +1,142 @@
+[
+  {
+    "id_reservation": 1,
+    "id_salle": 1,
+    "id_utilisateur": 1,
+    "res_dateDebut": "2026-02-01",
+    "res_dateFin": "2026-02-03"
+  },
+  {
+    "id_reservation": 2,
+    "id_salle": 2,
+    "id_utilisateur": 2,
+    "res_dateDebut": "2026-02-05",
+    "res_dateFin": "2026-02-07"
+  },
+  {
+    "id_reservation": 3,
+    "id_salle": 3,
+    "id_utilisateur": 3,
+    "res_dateDebut": "2026-02-10",
+    "res_dateFin": "2026-02-12"
+  },
+  {
+    "id_reservation": 4,
+    "id_salle": 4,
+    "id_utilisateur": 4,
+    "res_dateDebut": "2026-02-15",
+    "res_dateFin": "2026-02-18"
+  },
+  {
+    "id_reservation": 5,
+    "id_salle": 5,
+    "id_utilisateur": 5,
+    "res_dateDebut": "2026-02-20",
+    "res_dateFin": "2026-02-22"
+  },
+  {
+    "id_reservation": 6,
+    "id_salle": 6,
+    "id_utilisateur": 6,
+    "res_dateDebut": "2026-03-01",
+    "res_dateFin": "2026-03-03"
+  },
+  {
+    "id_reservation": 7,
+    "id_salle": 7,
+    "id_utilisateur": 7,
+    "res_dateDebut": "2026-03-05",
+    "res_dateFin": "2026-03-07"
+  },
+  {
+    "id_reservation": 8,
+    "id_salle": 8,
+    "id_utilisateur": 8,
+    "res_dateDebut": "2026-03-10",
+    "res_dateFin": "2026-03-12"
+  },
+  {
+    "id_reservation": 9,
+    "id_salle": 9,
+    "id_utilisateur": 9,
+    "res_dateDebut": "2026-03-15",
+    "res_dateFin": "2026-03-17"
+  },
+  {
+    "id_reservation": 10,
+    "id_salle": 10,
+    "id_utilisateur": 10,
+    "res_dateDebut": "2026-03-20",
+    "res_dateFin": "2026-03-22"
+  },
+  {
+    "id_reservation": 21,
+    "id_salle": 1,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-04-02",
+    "res_dateFin": "2026-04-04"
+  },
+  {
+    "id_reservation": 36,
+    "id_salle": 16,
+    "id_utilisateur": 27,
+    "res_dateDebut": "2026-03-01",
+    "res_dateFin": "2026-03-02"
+  },
+  {
+    "id_reservation": 37,
+    "id_salle": 4,
+    "id_utilisateur": 27,
+    "res_dateDebut": "2026-03-11",
+    "res_dateFin": "2026-03-12"
+  },
+  {
+    "id_reservation": 38,
+    "id_salle": 1,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-03-18",
+    "res_dateFin": "2026-03-20"
+  },
+  {
+    "id_reservation": 39,
+    "id_salle": 2,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-03-06",
+    "res_dateFin": "2026-03-08"
+  },
+  {
+    "id_reservation": 40,
+    "id_salle": 6,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-03-05",
+    "res_dateFin": "2026-03-09"
+  },
+  {
+    "id_reservation": 41,
+    "id_salle": 2,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-03-05",
+    "res_dateFin": "2026-03-10"
+  },
+  {
+    "id_reservation": 42,
+    "id_salle": 3,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-03-04",
+    "res_dateFin": "2026-03-09"
+  },
+  {
+    "id_reservation": 43,
+    "id_salle": 2,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-03-04",
+    "res_dateFin": "2026-03-06"
+  },
+  {
+    "id_reservation": 44,
+    "id_salle": 3,
+    "id_utilisateur": 29,
+    "res_dateDebut": "2026-03-08",
+    "res_dateFin": "2026-03-10"
+  }
+]

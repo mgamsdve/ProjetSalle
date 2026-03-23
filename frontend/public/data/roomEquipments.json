@@ -1,0 +1,140 @@
+[
+  {
+    "id_contenance": 1,
+    "id_equipement": 1,
+    "id_salle": 1,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 2,
+    "id_equipement": 2,
+    "id_salle": 1,
+    "cont_quantite": 10
+  },
+  {
+    "id_contenance": 3,
+    "id_equipement": 3,
+    "id_salle": 2,
+    "cont_quantite": 5
+  },
+  {
+    "id_contenance": 4,
+    "id_equipement": 4,
+    "id_salle": 2,
+    "cont_quantite": 20
+  },
+  {
+    "id_contenance": 5,
+    "id_equipement": 5,
+    "id_salle": 3,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 6,
+    "id_equipement": 6,
+    "id_salle": 4,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 7,
+    "id_equipement": 7,
+    "id_salle": 5,
+    "cont_quantite": 2
+  },
+  {
+    "id_contenance": 8,
+    "id_equipement": 8,
+    "id_salle": 6,
+    "cont_quantite": 4
+  },
+  {
+    "id_contenance": 9,
+    "id_equipement": 9,
+    "id_salle": 7,
+    "cont_quantite": 2
+  },
+  {
+    "id_contenance": 10,
+    "id_equipement": 10,
+    "id_salle": 8,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 11,
+    "id_equipement": 1,
+    "id_salle": 9,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 12,
+    "id_equipement": 2,
+    "id_salle": 10,
+    "cont_quantite": 15
+  },
+  {
+    "id_contenance": 13,
+    "id_equipement": 3,
+    "id_salle": 11,
+    "cont_quantite": 6
+  },
+  {
+    "id_contenance": 14,
+    "id_equipement": 4,
+    "id_salle": 12,
+    "cont_quantite": 18
+  },
+  {
+    "id_contenance": 15,
+    "id_equipement": 5,
+    "id_salle": 13,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 16,
+    "id_equipement": 6,
+    "id_salle": 14,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 17,
+    "id_equipement": 7,
+    "id_salle": 15,
+    "cont_quantite": 2
+  },
+  {
+    "id_contenance": 18,
+    "id_equipement": 8,
+    "id_salle": 16,
+    "cont_quantite": 3
+  },
+  {
+    "id_contenance": 19,
+    "id_equipement": 9,
+    "id_salle": 17,
+    "cont_quantite": 2
+  },
+  {
+    "id_contenance": 20,
+    "id_equipement": 10,
+    "id_salle": 18,
+    "cont_quantite": 1
+  },
+  {
+    "id_contenance": 21,
+    "id_equipement": 9,
+    "id_salle": 21,
+    "cont_quantite": 10
+  },
+  {
+    "id_contenance": 22,
+    "id_equipement": 2,
+    "id_salle": 22,
+    "cont_quantite": 20
+  },
+  {
+    "id_contenance": 23,
+    "id_equipement": 11,
+    "id_salle": 1,
+    "cont_quantite": 203
+  }
+]

@@ -26,40 +26,7 @@ import {
   Trash2,
   Users,
 } from "lucide-react";
-
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001";
-
-async function apiRequest(path, options = {}) {
-  const { method = "GET", body } = options;
-  const init = {
-    method,
-    credentials: "include",
-    headers: {},
-  };
-
-  if (body !== undefined) {
-    init.headers["Content-Type"] = "application/json";
-    init.body = JSON.stringify(body);
-  }
-
-  const response = await fetch(`${API_URL}${path}`, init);
-
-  let data = null;
-  try {
-    data = await response.json();
-  } catch {
-    data = null;
-  }
-
-  if (!response.ok) {
-    const error = new Error(data?.error ?? data?.message ?? "Request failed");
-    error.status = response.status;
-    error.data = data;
-    throw error;
-  }
-
-  return data;
-}
+import { apiRequest } from "./services/fakeApi";
 
 function usePageTitle(title) {
   useEffect(() => {

@@ -1,0 +1,42 @@
+[
+  {
+    "id_categorie": 1,
+    "cat_nom": "Restaurant"
+  },
+  {
+    "id_categorie": 2,
+    "cat_nom": "Local informatique"
+  },
+  {
+    "id_categorie": 3,
+    "cat_nom": "Salle d’étude"
+  },
+  {
+    "id_categorie": 4,
+    "cat_nom": "Salle de réunion"
+  },
+  {
+    "id_categorie": 5,
+    "cat_nom": "Laboratoire"
+  },
+  {
+    "id_categorie": 6,
+    "cat_nom": "Auditorium"
+  },
+  {
+    "id_categorie": 7,
+    "cat_nom": "Salle polyvalente"
+  },
+  {
+    "id_categorie": 8,
+    "cat_nom": "Bibliothèque"
+  },
+  {
+    "id_categorie": 9,
+    "cat_nom": "Studio média"
+  },
+  {
+    "id_categorie": 10,
+    "cat_nom": "Salle de sport"
+  }
+]

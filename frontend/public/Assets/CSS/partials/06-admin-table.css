@@ -84,6 +84,10 @@
   margin-bottom: 6px;
 }
 
+.admin-content .search-input {
+  max-width: 460px;
+}
+
 .admin-back {
   display: inline-flex;
   align-items: center;
@@ -226,6 +230,12 @@
   padding: 11px 20px;
   color: var(--text-primary);
   vertical-align: middle;
+}
+
+.admin-table td[colspan] {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 18px 20px;
 }
 
 .admin-table input:not([type="submit"]):not([type="hidden"]),

@@ -97,6 +97,20 @@
     justify-content: center;
   }
 
+  .page-header-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .search-toolbar {
+    margin-bottom: 16px;
+  }
+
+  .search-input {
+    width: 100%;
+    min-width: 0;
+  }
+
   /* Auth card */
   .auth-card {
     padding: 24px 20px;

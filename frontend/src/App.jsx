@@ -22,6 +22,7 @@ import {
   Menu,
   Monitor,
   Plus,
+  Search,
   Tag,
   Trash2,
   Users,
@@ -37,6 +38,39 @@ function usePageTitle(title) {
 function getUserInitials(user) {
   if (!user) return "";
   return `${user.uti_prenom?.[0] ?? ""}${user.uti_nom?.[0] ?? ""}`.toUpperCase();
+}
+
+function normalizeSearchText(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+function matchesSearch(values, query) {
+  const normalizedQuery = normalizeSearchText(query);
+
+  if (!normalizedQuery) {
+    return true;
+  }
+
+  return values.some((value) => normalizeSearchText(value).includes(normalizedQuery));
+}
+
+function SearchInput({ value, onChange, placeholder }) {
+  return (
+    <div className="search-input">
+      <Search size={16} />
+      <input
+        type="text"
+        value={value}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        onChange={(event) => onChange(event.target.value)}
+      />
+    </div>
+  );
 }
 
 function ProtectedRoute({ user, children }) {
@@ -438,12 +472,17 @@ function SallesPage() {
   usePageTitle("Salle");
 
   const [salles, setSalles] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     apiRequest("/api/salles")
       .then((rows) => setSalles(rows ?? []))
       .catch(() => setSalles([]));
   }, []);
+
+  const filteredSalles = salles.filter((salle) =>
+    matchesSearch([salle.sal_nom, salle.sal_numero, salle.sal_taille], searchTerm),
+  );
 
   return (
     <>
@@ -454,30 +493,41 @@ function SallesPage() {
           Nouvelle réservation
         </Link>
       </div>
-
-      <div className="Salle-container">
-        {salles.map((salle) => (
-          <div className="salle" key={salle.id_salle}>
-            <Link to={`/Salle/Details/${salle.sal_numero}`}>
-              <img
-                src={salle.sal_image}
-                alt={`Image de ${salle.sal_nom}`}
-                className="salle-image"
-              />
-            </Link>
-            <h3>{salle.sal_nom}</h3>
-            <p>
-              <strong>Capacité :</strong> {salle.sal_taille} m²
-            </p>
-            <p>
-              <strong>Référence :</strong> {salle.sal_numero}
-            </p>
-            <div className="salle-link">
-              <Link to={`/Salle/Details/${salle.sal_numero}`}>Voir détails</Link>
-            </div>
-          </div>
-        ))}
+      <div className="search-toolbar">
+        <SearchInput
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Rechercher une salle..."
+        />
       </div>
+
+      {filteredSalles.length === 0 ? (
+        <p>Aucune salle ne correspond à votre recherche.</p>
+      ) : (
+        <div className="Salle-container">
+          {filteredSalles.map((salle) => (
+            <div className="salle" key={salle.id_salle}>
+              <Link to={`/Salle/Details/${salle.sal_numero}`}>
+                <img
+                  src={salle.sal_image}
+                  alt={`Image de ${salle.sal_nom}`}
+                  className="salle-image"
+                />
+              </Link>
+              <h3>{salle.sal_nom}</h3>
+              <p>
+                <strong>Capacité :</strong> {salle.sal_taille} m²
+              </p>
+              <p>
+                <strong>Référence :</strong> {salle.sal_numero}
+              </p>
+              <div className="salle-link">
+                <Link to={`/Salle/Details/${salle.sal_numero}`}>Voir détails</Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
@@ -996,6 +1046,7 @@ function ReservationsPage({ user }) {
   usePageTitle("Mes Réservations");
 
   const [reservations, setReservations] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   async function loadReservations() {
     try {
@@ -1009,6 +1060,19 @@ function ReservationsPage({ user }) {
   useEffect(() => {
     loadReservations();
   }, []);
+
+  const filteredReservations = reservations.filter((reservation) =>
+    matchesSearch(
+      [
+        reservation.id_reservation,
+        reservation.sal_nom,
+        reservation.sal_numero,
+        reservation.res_dateDebut,
+        reservation.res_dateFin,
+      ],
+      searchTerm,
+    ),
+  );
 
   async function handleDeleteReservation(id) {
     const confirmed = window.confirm("Confirmer la suppression de cette réservation ?");
@@ -1034,6 +1098,13 @@ function ReservationsPage({ user }) {
           Nouvelle réservation
         </Link>
       </div>
+      <div className="search-toolbar">
+        <SearchInput
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Rechercher une réservation..."
+        />
+      </div>
 
       {reservations.length === 0 ? (
         <div style={{ textAlign: "center", padding: "60px 0", color: "var(--text-secondary)" }}>
@@ -1047,9 +1118,11 @@ function ReservationsPage({ user }) {
             Voir les salles disponibles
           </Link>
         </div>
+      ) : filteredReservations.length === 0 ? (
+        <p>Aucune réservation ne correspond à votre recherche.</p>
       ) : (
         <div className="Salle-container">
-          {reservations.map((reservation) => (
+          {filteredReservations.map((reservation) => (
             <div className="salle" key={reservation.id_reservation}>
               <Link to={`/Salle/Details/${reservation.sal_numero}`}>
                 <img
@@ -1209,6 +1282,56 @@ function CreateReservationPage({ user }) {
 function AdminDashboardPage() {
   usePageTitle("Administration");
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const adminSections = [
+    {
+      key: "users",
+      label: "Utilisateurs",
+      description: "Gérer les comptes et les rôles.",
+      to: "/admin/users",
+      Icon: Users,
+    },
+    {
+      key: "categories",
+      label: "Catégories",
+      description: "Gérer les catégories des salles.",
+      to: "/admin/categories",
+      Icon: Tag,
+    },
+    {
+      key: "salles",
+      label: "Salles",
+      description: "Gérer les salles et leurs infos.",
+      to: "/admin/salles",
+      Icon: DoorOpen,
+    },
+    {
+      key: "equipements",
+      label: "Équipements",
+      description: "Gérer les équipements disponibles.",
+      to: "/admin/equipements",
+      Icon: Monitor,
+    },
+    {
+      key: "contenances",
+      label: "Contenances",
+      description: "Associer équipements et salles.",
+      to: "/admin/contenances",
+      Icon: Link2,
+    },
+    {
+      key: "reservations",
+      label: "Réservations",
+      description: "Gérer toutes les réservations.",
+      to: "/admin/reservations",
+      Icon: Calendar,
+    },
+  ];
+
+  const filteredSections = adminSections.filter((section) =>
+    matchesSearch([section.label, section.description], searchTerm),
+  );
+
   return (
     <div className="admin-layout">
       <AdminSidebar />
@@ -1217,69 +1340,32 @@ function AdminDashboardPage() {
         <p style={{ color: "var(--text-secondary)", marginBottom: 32 }}>
           Gérez toutes les ressources de l'application.
         </p>
-
-        <div className="admin-kpi-grid">
-          <div className="admin-kpi">
-            <div className="admin-kpi-icon">
-              <Users />
-            </div>
-            <div className="admin-kpi-label">Utilisateurs</div>
-            <p>Gérer les comptes et les rôles.</p>
-            <Link to="/admin/users" className="btn">
-              Ouvrir
-            </Link>
-          </div>
-          <div className="admin-kpi">
-            <div className="admin-kpi-icon">
-              <Tag />
-            </div>
-            <div className="admin-kpi-label">Catégories</div>
-            <p>Gérer les catégories des salles.</p>
-            <Link to="/admin/categories" className="btn">
-              Ouvrir
-            </Link>
-          </div>
-          <div className="admin-kpi">
-            <div className="admin-kpi-icon">
-              <DoorOpen />
-            </div>
-            <div className="admin-kpi-label">Salles</div>
-            <p>Gérer les salles et leurs infos.</p>
-            <Link to="/admin/salles" className="btn">
-              Ouvrir
-            </Link>
-          </div>
-          <div className="admin-kpi">
-            <div className="admin-kpi-icon">
-              <Monitor />
-            </div>
-            <div className="admin-kpi-label">Équipements</div>
-            <p>Gérer les équipements disponibles.</p>
-            <Link to="/admin/equipements" className="btn">
-              Ouvrir
-            </Link>
-          </div>
-          <div className="admin-kpi">
-            <div className="admin-kpi-icon">
-              <Link2 />
-            </div>
-            <div className="admin-kpi-label">Contenances</div>
-            <p>Associer équipements et salles.</p>
-            <Link to="/admin/contenances" className="btn">
-              Ouvrir
-            </Link>
-          </div>
-          <div className="admin-kpi">
-            <div className="admin-kpi-icon">
-              <Calendar />
-            </div>
-            <div className="admin-kpi-label">Réservations</div>
-            <p>Gérer toutes les réservations.</p>
-            <Link to="/admin/reservations" className="btn">
-              Ouvrir
-            </Link>
-          </div>
+        <div className="search-toolbar">
+          <SearchInput
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Rechercher une section admin..."
+          />
         </div>
+
+        {filteredSections.length === 0 ? (
+          <p>Aucune section admin ne correspond à votre recherche.</p>
+        ) : (
+          <div className="admin-kpi-grid">
+            {filteredSections.map((section) => (
+              <div className="admin-kpi" key={section.key}>
+                <div className="admin-kpi-icon">
+                  <section.Icon />
+                </div>
+                <div className="admin-kpi-label">{section.label}</div>
+                <p>{section.description}</p>
+                <Link to={section.to} className="btn">
+                  Ouvrir
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1289,6 +1375,7 @@ function AdminUsersPage() {
   usePageTitle("Admin Utilisateurs");
 
   const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [newUser, setNewUser] = useState({
     nom: "",
     prenom: "",
@@ -1305,6 +1392,19 @@ function AdminUsersPage() {
   useEffect(() => {
     loadUsers().catch(() => setUsers([]));
   }, []);
+
+  const filteredUsers = users.filter((user) =>
+    matchesSearch(
+      [
+        user.id_utilisateur,
+        user.uti_nom,
+        user.uti_prenom,
+        user.uti_email,
+        user.uti_role,
+      ],
+      searchTerm,
+    ),
+  );
 
   async function handleAddUser(event) {
     event.preventDefault();
@@ -1340,6 +1440,13 @@ function AdminUsersPage() {
         <Link to="/admin" className="admin-back">
           <ArrowLeft style={{ width: 14, height: 14 }} /> Retour à l'administration
         </Link>
+        <div className="search-toolbar">
+          <SearchInput
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Rechercher un utilisateur..."
+          />
+        </div>
 
         <section className="admin-section">
           <form className="admin-form" onSubmit={handleAddUser}>
@@ -1407,7 +1514,12 @@ function AdminUsersPage() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
+                {filteredUsers.length === 0 ? (
+                  <tr>
+                    <td colSpan={6}>Aucun utilisateur ne correspond à votre recherche.</td>
+                  </tr>
+                ) : (
+                  filteredUsers.map((user) => (
                   <tr key={user.id_utilisateur}>
                     <td>{user.id_utilisateur}</td>
                     <td>
@@ -1481,7 +1593,8 @@ function AdminUsersPage() {
                       </form>
                     </td>
                   </tr>
-                ))}
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -1495,6 +1608,7 @@ function AdminCategoriesPage() {
   usePageTitle("Admin Categories");
 
   const [categories, setCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [newName, setNewName] = useState("");
 
   async function loadCategories() {
@@ -1505,6 +1619,10 @@ function AdminCategoriesPage() {
   useEffect(() => {
     loadCategories().catch(() => setCategories([]));
   }, []);
+
+  const filteredCategories = categories.filter((category) =>
+    matchesSearch([category.id_categorie, category.cat_nom], searchTerm),
+  );
 
   async function handleAddCategory(event) {
     event.preventDefault();
@@ -1539,6 +1657,13 @@ function AdminCategoriesPage() {
         <Link to="/admin" className="admin-back">
           <ArrowLeft style={{ width: 14, height: 14 }} /> Retour à l'administration
         </Link>
+        <div className="search-toolbar">
+          <SearchInput
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Rechercher une catégorie..."
+          />
+        </div>
 
         <section className="admin-section">
           <form className="admin-form" onSubmit={handleAddCategory}>
@@ -1567,7 +1692,12 @@ function AdminCategoriesPage() {
                 </tr>
               </thead>
               <tbody>
-                {categories.map((category) => (
+                {filteredCategories.length === 0 ? (
+                  <tr>
+                    <td colSpan={4}>Aucune catégorie ne correspond à votre recherche.</td>
+                  </tr>
+                ) : (
+                  filteredCategories.map((category) => (
                   <tr key={category.id_categorie}>
                     <td>{category.id_categorie}</td>
                     <td>
@@ -1599,7 +1729,8 @@ function AdminCategoriesPage() {
                       </form>
                     </td>
                   </tr>
-                ))}
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -1614,6 +1745,7 @@ function AdminSallesPage() {
 
   const [categories, setCategories] = useState([]);
   const [salles, setSalles] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [newSalle, setNewSalle] = useState({
     id_categorie: "",
     nom: "",
@@ -1644,6 +1776,24 @@ function AdminSallesPage() {
       setSalles([]);
     });
   }, []);
+
+  const categoryNamesById = new Map(
+    categories.map((category) => [String(category.id_categorie), category.cat_nom]),
+  );
+  const filteredSalles = salles.filter((salle) =>
+    matchesSearch(
+      [
+        salle.id_salle,
+        salle.sal_nom,
+        salle.sal_numero,
+        salle.sal_taille,
+        salle.sal_image,
+        salle.id_categorie,
+        categoryNamesById.get(String(salle.id_categorie)),
+      ],
+      searchTerm,
+    ),
+  );
 
   async function handleAddSalle(event) {
     event.preventDefault();
@@ -1692,6 +1842,13 @@ function AdminSallesPage() {
         <Link to="/admin" className="admin-back">
           <ArrowLeft style={{ width: 14, height: 14 }} /> Retour à l'administration
         </Link>
+        <div className="search-toolbar">
+          <SearchInput
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Rechercher une salle..."
+          />
+        </div>
 
         <section className="admin-section">
           <form className="admin-form" onSubmit={handleAddSalle}>
@@ -1765,7 +1922,12 @@ function AdminSallesPage() {
                 </tr>
               </thead>
               <tbody>
-                {salles.map((salle) => (
+                {filteredSalles.length === 0 ? (
+                  <tr>
+                    <td colSpan={8}>Aucune salle ne correspond à votre recherche.</td>
+                  </tr>
+                ) : (
+                  filteredSalles.map((salle) => (
                   <tr key={salle.id_salle}>
                     <td>{salle.id_salle}</td>
                     <td>
@@ -1864,7 +2026,8 @@ function AdminSallesPage() {
                       </form>
                     </td>
                   </tr>
-                ))}
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -1878,6 +2041,7 @@ function AdminEquipementsPage() {
   usePageTitle("Admin Equipements");
 
   const [equipements, setEquipements] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [newEquipement, setNewEquipement] = useState({ nom: "", description: "" });
 
   async function loadEquipements() {
@@ -1888,6 +2052,13 @@ function AdminEquipementsPage() {
   useEffect(() => {
     loadEquipements().catch(() => setEquipements([]));
   }, []);
+
+  const filteredEquipements = equipements.filter((equipement) =>
+    matchesSearch(
+      [equipement.id_equipement, equipement.equi_nom, equipement.equi_description],
+      searchTerm,
+    ),
+  );
 
   async function handleAddEquipement(event) {
     event.preventDefault();
@@ -1927,6 +2098,13 @@ function AdminEquipementsPage() {
         <Link to="/admin" className="admin-back">
           <ArrowLeft style={{ width: 14, height: 14 }} /> Retour à l'administration
         </Link>
+        <div className="search-toolbar">
+          <SearchInput
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Rechercher un équipement..."
+          />
+        </div>
 
         <section className="admin-section">
           <form className="admin-form" onSubmit={handleAddEquipement}>
@@ -1969,7 +2147,12 @@ function AdminEquipementsPage() {
                 </tr>
               </thead>
               <tbody>
-                {equipements.map((equipement) => (
+                {filteredEquipements.length === 0 ? (
+                  <tr>
+                    <td colSpan={5}>Aucun équipement ne correspond à votre recherche.</td>
+                  </tr>
+                ) : (
+                  filteredEquipements.map((equipement) => (
                   <tr key={equipement.id_equipement}>
                     <td>{equipement.id_equipement}</td>
                     <td>
@@ -2017,7 +2200,8 @@ function AdminEquipementsPage() {
                       </form>
                     </td>
                   </tr>
-                ))}
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -2033,6 +2217,7 @@ function AdminContenancesPage() {
   const [salles, setSalles] = useState([]);
   const [equipements, setEquipements] = useState([]);
   const [contenances, setContenances] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [newContenance, setNewContenance] = useState({
     id_salle: "",
     id_equipement: "",
@@ -2067,6 +2252,28 @@ function AdminContenancesPage() {
       setContenances([]);
     });
   }, []);
+
+  const sallesById = new Map(salles.map((salle) => [String(salle.id_salle), salle]));
+  const equipementsById = new Map(
+    equipements.map((equipement) => [String(equipement.id_equipement), equipement]),
+  );
+  const filteredContenances = contenances.filter((contenance) => {
+    const salle = sallesById.get(String(contenance.id_salle));
+    const equipement = equipementsById.get(String(contenance.id_equipement));
+
+    return matchesSearch(
+      [
+        contenance.id_contenance,
+        contenance.id_salle,
+        contenance.id_equipement,
+        contenance.cont_quantite,
+        salle?.sal_nom,
+        salle?.sal_numero,
+        equipement?.equi_nom,
+      ],
+      searchTerm,
+    );
+  });
 
   async function handleAddContenance(event) {
     event.preventDefault();
@@ -2107,6 +2314,13 @@ function AdminContenancesPage() {
         <Link to="/admin" className="admin-back">
           <ArrowLeft style={{ width: 14, height: 14 }} /> Retour à l'administration
         </Link>
+        <div className="search-toolbar">
+          <SearchInput
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Rechercher une contenance..."
+          />
+        </div>
 
         <section className="admin-section">
           <form className="admin-form" onSubmit={handleAddContenance}>
@@ -2169,7 +2383,12 @@ function AdminContenancesPage() {
                 </tr>
               </thead>
               <tbody>
-                {contenances.map((contenance) => (
+                {filteredContenances.length === 0 ? (
+                  <tr>
+                    <td colSpan={6}>Aucune contenance ne correspond à votre recherche.</td>
+                  </tr>
+                ) : (
+                  filteredContenances.map((contenance) => (
                   <tr key={contenance.id_contenance}>
                     <td>{contenance.id_contenance}</td>
                     <td>
@@ -2241,7 +2460,8 @@ function AdminContenancesPage() {
                       </form>
                     </td>
                   </tr>
-                ))}
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -2257,6 +2477,7 @@ function AdminReservationsPage() {
   const [salles, setSalles] = useState([]);
   const [users, setUsers] = useState([]);
   const [reservations, setReservations] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [newReservation, setNewReservation] = useState({
     id_salle: "",
     id_utilisateur: "",
@@ -2290,6 +2511,29 @@ function AdminReservationsPage() {
       setReservations([]);
     });
   }, []);
+
+  const sallesById = new Map(salles.map((salle) => [String(salle.id_salle), salle]));
+  const usersById = new Map(users.map((user) => [String(user.id_utilisateur), user]));
+  const filteredReservations = reservations.filter((reservation) => {
+    const salle = sallesById.get(String(reservation.id_salle));
+    const user = usersById.get(String(reservation.id_utilisateur));
+
+    return matchesSearch(
+      [
+        reservation.id_reservation,
+        reservation.id_salle,
+        reservation.id_utilisateur,
+        reservation.res_dateDebut,
+        reservation.res_dateFin,
+        salle?.sal_nom,
+        salle?.sal_numero,
+        user?.uti_nom,
+        user?.uti_prenom,
+        user?.uti_email,
+      ],
+      searchTerm,
+    );
+  });
 
   async function handleAddReservation(event) {
     event.preventDefault();
@@ -2331,6 +2575,13 @@ function AdminReservationsPage() {
         <Link to="/admin" className="admin-back">
           <ArrowLeft style={{ width: 14, height: 14 }} /> Retour à l'administration
         </Link>
+        <div className="search-toolbar">
+          <SearchInput
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Rechercher une réservation..."
+          />
+        </div>
 
         <section className="admin-section">
           <form className="admin-form" onSubmit={handleAddReservation}>
@@ -2405,7 +2656,12 @@ function AdminReservationsPage() {
                 </tr>
               </thead>
               <tbody>
-                {reservations.map((reservation) => (
+                {filteredReservations.length === 0 ? (
+                  <tr>
+                    <td colSpan={7}>Aucune réservation ne correspond à votre recherche.</td>
+                  </tr>
+                ) : (
+                  filteredReservations.map((reservation) => (
                   <tr key={reservation.id_reservation}>
                     <td>{reservation.id_reservation}</td>
                     <td>
@@ -2493,7 +2749,8 @@ function AdminReservationsPage() {
                       </form>
                     </td>
                   </tr>
-                ))}
+                  ))
+                )}
               </tbody>
             </table>
           </div>
